@@ -17,15 +17,14 @@ public class RegistrationController {
 
     @PostMapping("/register")
     public void register(@RequestBody RegisterUserDto registerCredentials) throws BadRequestException {
-        var userByName = userService.loadUserByUsername(registerCredentials.name());
-
-        if (userByName != null) {
+        try {
+            userService.loadUserByUsername(registerCredentials.name());
             throw new BadRequestException("User with name: \"" + registerCredentials.name() + "\" is already present");
+        } catch (Exception e) {
+            var userToSave = new User();
+            userToSave.setUsername(registerCredentials.name());
+            userToSave.setPassword(registerCredentials.password());
+            userService.saveUser(userToSave);
         }
-
-        var userToSave = new User();
-        userToSave.setUsername(registerCredentials.name());
-        userToSave.setPassword(registerCredentials.password());
-        userService.saveUser(userToSave);
     }
 }
