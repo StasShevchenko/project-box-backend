@@ -1,5 +1,6 @@
 package com.example.project_box_backend.controllers;
 
+import com.example.project_box_backend.dto.UserInfoDto;
 import com.example.project_box_backend.models.User;
 import com.example.project_box_backend.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +17,7 @@ public class UserController {
     UserService userService;
 
     @GetMapping("/user-profile")
-    public UserDetails getUserInfo(@AuthenticationPrincipal UserDetails userDetails) {
-        return userDetails;
+    public UserInfoDto getUserInfo(@AuthenticationPrincipal UserDetails userDetails) {
+        return new UserInfoDto((User) userDetails);
     }
 }

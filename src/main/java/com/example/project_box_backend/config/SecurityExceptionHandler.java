@@ -21,9 +21,9 @@ public class SecurityExceptionHandler {
     })
     @ResponseStatus(HttpStatus.UNAUTHORIZED)
     public ResponseEntity<ProblemDetail> handleAuthFailure(RuntimeException ex) {
-        ProblemDetail problemDetail = ProblemDetail.forStatus(HttpStatus.UNAUTHORIZED);
+        ProblemDetail problemDetail = ProblemDetail.forStatus(HttpStatus.BAD_REQUEST);
         problemDetail.setDetail("Неверные логин или пароль");
-        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(problemDetail);
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(problemDetail);
     }
 
 }
